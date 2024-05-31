@@ -2,3 +2,7 @@
 ./tmux/plugins
 fish/fish_variables
 tmux/plugins
+btop/btop.log
+fish/themes
+fish/work_env.fish
+github-copilot/

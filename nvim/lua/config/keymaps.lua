@@ -15,6 +15,8 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Page down" })
 vim.keymap.set("n", "n", "nzzzv", { desc = "Next term" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous term" })
 vim.keymap.set("i", "<C-c>", "<Esc>")
+vim.keymap.set("i", "jj", "<Esc>")
+vim.keymap.set("i", "kk", "<Esc>")
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set(
   "n",
