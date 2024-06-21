@@ -41,3 +41,4 @@ set -x VISUAL nvim
 set -x XDG_CONFIG_HOME ~/.config/
 set -x DOCKER_HOST unix:///$HOME/.colima/docker.sock
 
+source ~/.config/fish/work_env.fish

@@ -8,11 +8,11 @@
     "lazyvim.plugins.extras.editor.harpoon2",
     "lazyvim.plugins.extras.editor.illuminate",
     "lazyvim.plugins.extras.editor.navic",
-    "lazyvim.plugins.extras.editor.trouble-v3",
     "lazyvim.plugins.extras.lang.java",
     "lazyvim.plugins.extras.lang.markdown",
     "lazyvim.plugins.extras.lang.rust",
     "lazyvim.plugins.extras.lang.terraform",
+    "lazyvim.plugins.extras.lang.toml",
     "lazyvim.plugins.extras.test.core",
     "lazyvim.plugins.extras.ui.mini-indentscope",
     "lazyvim.plugins.extras.ui.treesitter-context",
@@ -20,7 +20,7 @@
     "lazyvim.plugins.extras.util.startuptime"
   ],
   "news": {
-    "NEWS.md": "4964"
+    "NEWS.md": "6077"
   },
-  "version": 5
+  "version": 6
 }

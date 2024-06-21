@@ -11,20 +11,22 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Join next line" })
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Page up" })
+vim.keymap.set("i", "<C-d>", "<Esc><C-d>zz", { desc = "Page up" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Page down" })
+vim.keymap.set("i", "<C-u>", "<Esc><C-u>zz", { desc = "Page down" })
 vim.keymap.set("n", "n", "nzzzv", { desc = "Next term" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous term" })
 vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.keymap.set("i", "jj", "<Esc>")
 vim.keymap.set("i", "kk", "<Esc>")
 vim.keymap.set("n", "Q", "<nop>")
-vim.keymap.set(
-  "n",
-  "<C-n>",
-  "<cmd>silent !tmux neww tmux-sessionizer<CR>",
-  { desc = "Open new tmux session from workspace" }
-)
-vim.keymap.set("n", "<C-f>", "<cmd>!tmux neww tmux-session-picker<CR>", { desc = "Open existing tmux session" })
+-- vim.keymap.set(
+--   "n",
+--   "<C-n>",
+--   "<cmd>silent !tmux neww tmux-sessionizer<CR>",
+--   { desc = "Open new tmux session from workspace" }
+-- )
+-- vim.keymap.set("n", "<C-f>", "<cmd>!tmux neww tmux-session-picker<CR>", { desc = "Open existing tmux session" })
 vim.keymap.set("x", "<leader>P", '"_dP', { desc = "Paste no replace" })
 vim.keymap.set("n", "<leader>r", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { desc = "Replace in buffer" })
 
