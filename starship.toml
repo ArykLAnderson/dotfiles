@@ -1,0 +1,176 @@
+# nord0 = "#2e3440"
+# nord1 = "#3b4252"
+# nord2 = "#434c5e"
+# nord3 = "#4c566a"
+# nord4 = "#d8dee9"
+# nord5 = "#e5e9f0"
+# nord6 = "#eceff4"
+# nord7 = "#8fbcbb"
+# nord8 = "#88c0d0"
+# nord9 = "#81a1c1"
+# nord10 = "#5e81ac"
+# nord11 = "#bf616a"
+# nord12 = "#d08770"
+# nord13 = "#ebcb8b"
+# nord14 = "#a3be8c"
+# nord15 = "#b48ead"
+
+format = """
+[](#4c566a)\
+$username\
+[](bg:#5e81ac fg:#4c566a)\
+$directory\
+[](fg:#5e81ac bg:#81a1c1)\
+$git_branch\
+$git_status\
+[ ](fg:#81a1c1)\
+$fill\
+[](fg:#bf616a)\
+$c\
+$elixir\
+$elm\
+$golang\
+$gradle\
+$haskell\
+$java\
+$julia\
+$nodejs\
+$nim\
+$rust\
+$scala\
+[](fg:#bf616a bg:#d08770)\
+[](fg:#d08770 bg:#ebcb8b)\
+[](fg:#ebcb8b bg:#a3be8c)\
+$kubernetes\
+[](fg:#a3be8c bg:#b48ead)\
+$time\
+[](fg:#b48ead)\
+\n$character
+"""
+
+# Disable the blank line at the start of the prompt
+add_newline = true
+
+# You can also replace your username with a neat symbol like   or disable this
+# and use the os module below
+[line_break]
+disabled = false
+
+[fill]
+symbol = " "
+
+[username]
+show_always = true
+style_user = "bg:#4c566a"
+style_root = "bg:#4c566a"
+format = '[ 󰀵 ]($style)'
+disabled = false
+
+# An alternative to the username module which displays a symbol that
+# represents the current operating system
+[os]
+style = "bg:#4c566a"
+disabled = true      # Disabled by default
+
+[character]
+
+
+[directory]
+style = "bg:#5e81ac"
+format = "[ $path ]($style)"
+fish_style_pwd_dir_length = 2
+truncation_length = 3
+truncation_symbol = "…/"
+
+# Here is how you can shorten some long paths by text replacement
+# similar to mapped_locations in Oh My Posh:
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+# Keep in mind that the order matters. For example:
+# "Important Documents" = " 󰈙 "
+# will not be replaced, because "Documents" was already substituted before.
+# So either put "Important Documents" before "Documents" or use the substituted version:
+# "Important 󰈙 " = " 󰈙 "
+
+[git_branch]
+symbol = ""
+style = "bg:#81a1c1"
+format = '[ $symbol $branch ]($style)'
+
+[git_status]
+style = "bg:#81a1c1"
+format = '[$all_status $ahead_behind]($style)'
+
+[c]
+symbol = " "
+style = "bg:#bf616a"
+format = '[ $symbol($version) ]($style)'
+
+[elixir]
+symbol = " "
+style = "bg:#bf616a"
+format = '[ $symbol($version)]($style)'
+
+[elm]
+symbol = " "
+style = "bg:#bf616a"
+format = '[ $symbol($version)]($style)'
+
+[golang]
+symbol = " "
+style = "bg:#bf616a"
+format = '[ $symbol($version)]($style)'
+
+[gradle]
+style = "bg:#bf616a"
+format = '[ $symbol($version)]($style)'
+
+[haskell]
+symbol = " "
+style = "bg:#bf616a"
+format = '[ $symbol($version)]($style)'
+
+[java]
+symbol = " "
+style = "bg:#bf616a"
+format = '[ $symbol($version)]($style)'
+
+[julia]
+symbol = " "
+style = "bg:#bf616a"
+format = '[ $symbol($version)]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:#bf616a"
+format = '[ $symbol($version)]($style)'
+
+[nim]
+symbol = "󰆥 "
+style = "bg:#bf616a"
+format = '[ $symbol($version)]($style)'
+
+[rust]
+symbol = ""
+style = "bg:#bf616a"
+format = '[ $symbol($version)]($style)'
+
+[scala]
+symbol = " "
+style = "bg:#bf616a"
+format = '[ $symbol($version)]($style)'
+
+[kubernetes]
+disabled = false
+symbol = "󱃾 "
+style = "bg:#a3be8c"
+format = '[ $symbol$context $namespace]($style)'
+
+[time]
+disabled = false
+time_format = "%R"             # Hour:Minute Format
+style = "bg:#b48ead"
+format = '[ 󰄉 $time ]($style)'

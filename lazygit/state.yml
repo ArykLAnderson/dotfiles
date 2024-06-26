@@ -1,0 +1,20 @@
+lastupdatecheck: 0
+recentrepos:
+- /Users/ct9o/.config
+- /Users/ct9o/workspace/payments/app09385-database-models
+- /Users/ct9o/workspace/payments/app09385-payments-postgres-db
+- /Users/ct9o/workspace/payments/shared-infrastructure
+- /Users/ct9o/workspace/credit/app09080-event-sourcing-consumer
+- /Users/ct9o/workspace/fraud/app08626-decisioning-listener
+- /Users/ct9o/workspace/fraud/APP08067-ostat-db
+- /Users/ct9o/workspace/fraud/app08957-fraud-vendor-proxy-listener
+- /Users/ct9o/workspace/payments/APP09385-payments-dynamo-db
+- /Users/ct9o/workspace/fraud/APP08066-fraud-single-proxy-infrastructure
+- /Users/ct9o/workspace/fraud/APP08624-ostat-listener
+- /Users/ct9o/workspace/fraud/APP09213-apruvd-proxy-listener
+- /Users/ct9o/workspace/nordstrom/APP04889-schema-repository
+- /Users/ct9o/workspace/fraud/APP08627-npr-listener
+startuppopupversion: 5
+customcommandshistory: []
+hidecommandlog: false
+ignorewhitespaceindiffview: false
