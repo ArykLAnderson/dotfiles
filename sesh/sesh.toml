@@ -1,0 +1,2 @@
+[default_session]
+startup_script = "nvim -c ':Telescope find_files'"

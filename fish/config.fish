@@ -19,9 +19,6 @@ alias ls='eza -g --icons'
 alias vim=nvim
 alias v=nvim
 alias grep=rg
-alias f=fuck
-alias ts=tmux-sessionizer
-alias tp=tmux-session-picker
 alias ta='tmux attach'
 alias al='aws-okta login'
 alias ac='aws-okta creds'
@@ -71,7 +68,7 @@ set fish_color_search_match $nord8
 set fish_color_operator $nord9
 set fish_color_escape $nord13
 set fish_color_cwd $nord8
-set fish_color_autosuggestion $nord6
+set fish_color_autosuggestion $nord5
 set fish_color_user $nord4
 set fish_color_host $nord9
 set fish_color_cancel $nord15
@@ -82,5 +79,7 @@ set fish_pager_color_progress $nord12
 set fish_pager_color_secondary $nord1
 
 source ~/.config/fish/work_env.fish
+
 starship init fish | source
 enable_transience
+start_or_attach_tmux
