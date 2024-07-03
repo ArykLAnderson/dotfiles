@@ -21,11 +21,12 @@ return {
       enable_diagnostics = true,
       filesystem = {
         bind_to_cwd = false,
-        follow_current_file = { enabled = true },
-        use_libuv_file_watcher = true,
         filtered_items = {
           visible = true,
         },
+        follow_current_file = { enabled = true },
+        group_empty_dirs = true,
+        use_libuv_file_watcher = true,
       },
     }
   end,
