@@ -16,6 +16,7 @@ fish_add_path ~/opt/homebrew/opt/ruby/bin
 alias l='eza -alg --icons'
 alias lt='eza -lg --tree --level=2 --icons'
 alias ls='eza -g --icons'
+alias za='zoxide_add'
 alias vim=nvim
 alias v=nvim
 alias grep=rg
