@@ -94,6 +94,10 @@ return {
                 name = "JavaSE-19",
                 path = "/Users/ct9o/Library/Java/JavaVirtualMachines/corretto-19.0.2/Contents/Home/",
               },
+              {
+                name = "JavaSE-21",
+                path = "/Library/Java/JavaVirtualMachines/amazon-corretto-21.jdk/Contents/Home",
+              },
             },
           },
           maven = {

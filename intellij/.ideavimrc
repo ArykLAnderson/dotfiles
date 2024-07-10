@@ -1,0 +1,22 @@
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'machakann/vim-highlightedyank'
+
+:map mc <A-n>
+:map mx <A-x>
+:map mp <A-p>
+
+:vmap J :m '>+1<CR>gv=gv
+:vmap K :m '<-2<CR>gv=gv
+
+:nnoremap <C-d> <C-d>zz
+:nnoremap <C-u> <C-u>zz
+:nnoremap n nzzzv
+:nnoremap N Nzzzv
+
+:nmap tt :noh<CR>
+:set ignorecase smartcase
+:set incsearch
+:set hlsearch
+:set scrolloff 8
