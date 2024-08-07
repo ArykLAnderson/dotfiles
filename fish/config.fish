@@ -31,8 +31,6 @@ bind --user -M insert \ce forward-char
 bind --user -M insert \cn tmux-sessionizer
 bind --user -M insert \cf tmux-session-picker
 
-bass source ~/.nvm/nvm.sh --no-use ';'
-
 #Disable shell startup text
 set -g fish_greeting
 
@@ -40,4 +38,3 @@ set -x EDITOR nvim
 set -x VISUAL nvim
 set -x XDG_CONFIG_HOME ~/.config/
 set -x DOCKER_HOST unix:///$HOME/.colima/docker.sock
-
