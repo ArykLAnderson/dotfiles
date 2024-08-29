@@ -77,7 +77,7 @@ set fish_pager_color_description $nord10
 set fish_pager_color_progress $nord12
 set fish_pager_color_secondary $nord1
 
-source ~/.config/fish/work_env.fish
+#source ~/.config/fish/work_env.fish
 
 starship init fish | source
 enable_transience

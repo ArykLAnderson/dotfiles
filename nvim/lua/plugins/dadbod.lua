@@ -19,12 +19,8 @@ return {
       vim.g.db_ui_show_help = 0
       vim.g.db_ui_use_nvim_notify = 1
       vim.g.db_ui_win_position = "right"
-
-      require("which-key").register({
-        ["<leader>D"] = {
-          name = "Db Tools",
-        },
-      })
+      local wk = require("which-key")
+      wk.add({ "<leader>D", name = "Db Tools", desc = "DB UI Tools" })
     end,
     keys = {
       { "<leader>Du", "<cmd>DBUIToggle<cr>", desc = "DB UI Toggle" },
