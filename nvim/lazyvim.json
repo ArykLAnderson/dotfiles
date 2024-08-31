@@ -1,7 +1,14 @@
 {
-    "extras": [],
-    "news": {
-        "NEWS.md": "6520"
-    },
-    "version": 6
+  "extras": [
+    "lazyvim.plugins.extras.coding.yanky",
+    "lazyvim.plugins.extras.dap.core",
+    "lazyvim.plugins.extras.editor.harpoon2",
+    "lazyvim.plugins.extras.editor.illuminate",
+    "lazyvim.plugins.extras.ui.mini-indentscope",
+    "lazyvim.plugins.extras.util.startuptime"
+  ],
+  "news": {
+    "NEWS.md": "6520"
+  },
+  "version": 6
 }
