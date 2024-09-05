@@ -19,6 +19,7 @@ alias ls='eza -g --icons'
 alias za='zoxide_add'
 alias vim=nvim
 alias v=nvim
+alias b='yazi'
 alias grep=rg
 alias ta='tmux attach'
 alias al='aws-okta login'
