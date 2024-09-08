@@ -22,13 +22,9 @@ alias v=nvim
 alias b='yazi'
 alias grep=rg
 alias ta='tmux attach'
-alias al='aws-okta login'
-alias ac='aws-okta creds'
 zoxide init --cmd cd fish | source
 
 bind --user -M insert \ce forward-char
-bind --user -M insert \cn tmux-sessionizer
-bind --user -M insert \cf tmux-session-picker
 
 #Disable shell startup text
 set -g fish_greeting
@@ -76,10 +72,12 @@ set fish_pager_color_prefix $nord13
 set fish_pager_color_completion $nord6
 set fish_pager_color_description $nord10
 set fish_pager_color_progress $nord12
+
 set fish_pager_color_secondary $nord1
 
 #source ~/.config/fish/work_env.fish
 
 starship init fish | source
+fzf --fish | source
 enable_transience
 start_or_attach_tmux
