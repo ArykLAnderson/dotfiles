@@ -20,12 +20,12 @@ return {
   opts = {
     workspaces = {
       {
-        name = "personal",
-        path = "~/workspace/notes/Seithyr",
-      },
-      {
         name = "work",
         path = "~/workspace/notes/work",
+      },
+      {
+        name = "personal",
+        path = "~/workspace/notes/personal",
       },
     },
     daily_notes = {
@@ -92,8 +92,8 @@ return {
     },
     {
       "<leader>oe",
-      "<cmd>ObsidianExtractNote",
-      desc = "Extract note from visual selection<cr>",
+      "<cmd>ObsidianExtractNote<cr>",
+      desc = "Extract note from visual selection",
       mode = { "v" },
     },
     {
