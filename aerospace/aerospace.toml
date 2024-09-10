@@ -198,16 +198,25 @@ alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
 
 [[on-window-detected]]
+if.app-id = 'org.google.Chrome'
+run = "move-node-to-workspace B"
+
+[[on-window-detected]]
 if.app-id = 'org.mozilla.com.zen.browser'
 run = "move-node-to-workspace B"
 
 [[on-window-detected]]
-if.app-id = 'ru.keepcoder.Telegram'
-run = "move-node-to-workspace C"
-
-[[on-window-detected]]
 if.app-id = 'com.hnc.discord'
 run = "move-node-to-workspace D"
+
+[[on-window-detected]]
+if.app-id = 'com.appple.mail'
+run = "move-node-to-workspace E"
+
+[[on-window-detected]]
+if.app-id = 'com.appple.iCal'
+run = "move-node-to-workspace E"
+
 
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
