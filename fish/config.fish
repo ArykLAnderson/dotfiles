@@ -15,16 +15,23 @@ fish_add_path ~/opt/homebrew/opt/ruby/bin
 
 alias l='eza -alg --icons'
 alias lt='eza -lg --tree --level=2 --icons'
-alias ls='eza -g --icons'
+alias ls='eza -ag --icons'
 alias za='zoxide_add'
 alias vim=nvim
 alias v=nvim
 alias b='yazi'
 alias grep=rg
 alias ta='tmux attach'
+alias ga='gcloud auth login'
+alias kx='kubectx'
+alias kn='kubens'
+alias kc='kubectl'
+alias kk='k9s'
 zoxide init --cmd cd fish | source
 
 bind --user -M insert \ce forward-char
+bind --user -M insert \cs pet-select
+bind --user -M insert \cp pet-prev
 
 #Disable shell startup text
 set -g fish_greeting
@@ -75,7 +82,7 @@ set fish_pager_color_progress $nord12
 
 set fish_pager_color_secondary $nord1
 
-#source ~/.config/fish/work_env.fish
+source ~/.config/fish/work_env.fish
 
 starship init fish | source
 fzf --fish | source
