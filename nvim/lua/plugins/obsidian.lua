@@ -97,6 +97,11 @@ return {
       mode = { "v" },
     },
     {
+      "<leader>of",
+      "<cmd>ObsidianFollowLink<cr>",
+      desc = "Follow highlighted link",
+    },
+    {
       "<leader>on",
       "<cmd>ObsidianNew<cr>",
       desc = "New obsidian note",
