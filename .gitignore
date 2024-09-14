@@ -8,3 +8,4 @@ fish/work_env.fish
 github-copilot/
 lazygit/state.yml
 nvim/lazy-lock.json
+pet/snippet.toml
