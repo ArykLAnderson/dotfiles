@@ -22,7 +22,6 @@ $username\
 $directory\
 [](fg:#5e81ac bg:#81a1c1)\
 $git_branch\
-$git_status\
 [ ](fg:#81a1c1)\
 $fill\
 [](fg:#bf616a)\
