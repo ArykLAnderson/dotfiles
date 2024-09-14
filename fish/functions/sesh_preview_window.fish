@@ -1,6 +1,6 @@
 function sesh_preview_window
     if test (echo $argv[1] | wc -w) -gt 1
-        set session_name (echo $argv[1] | awk '{print $2}')
+        set session_name (echo $argv[1] | cut -d " " -f2-)
     else
         set session_name $argv[1]
     end
@@ -8,13 +8,13 @@ function sesh_preview_window
     if test -z $session_id
         set escaped_name (echo $session_name | sed s^~^$HOME^g)
         if test -d $escaped_name
-            figlet -f doom $session_name
+            figlet -w 100 -f doom $session_name
             eza -lg --tree --level=2 --icons --color=always "$escaped_name"
         else
-            figlet -f isometric2 $session_name
+            figlet -w 100 -f isometric2 $session_name
         end
     else
-        figlet -f doom $session_name
+        figlet -w 100 -f doom $session_name
         tmux capture-pane -ep -t "$session_id"
     end
 end
