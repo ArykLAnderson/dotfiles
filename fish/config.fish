@@ -31,7 +31,7 @@ zoxide init --cmd cd fish | source
 
 bind --user -M insert \ce forward-char
 bind --user -M insert \cs pet-select
-bind --user -M insert \cp pet-prev
+bind --user -M insert \ca pet-prev
 
 #Disable shell startup text
 set -g fish_greeting
