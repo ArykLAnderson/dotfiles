@@ -9,5 +9,6 @@ function sesh_list_sessions
         --bind 'ctrl-x:change-prompt(󱞊   )+reload(sesh list -i -z)' \
         --bind 'ctrl-f:change-prompt(   )+reload(fd -H -d 2 -t d -E .Trash . ~)' \
         --bind 'ctrl-k:execute(echo {} | awk \'{print $2}\' | xargs -I {} tmux kill-session -t {})+reload(sesh list -i)+change-prompt(   )' \
-        --preview 'sesh_preview_window {}'
+        --preview 'sesh_preview_window {}' \
+        --preview-window '65%'
 end
