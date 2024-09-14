@@ -6,3 +6,5 @@ btop/btop.log
 fish/themes
 fish/work_env.fish
 github-copilot/
+lazygit/state.yml
+nvim/lazy-lock.lua
