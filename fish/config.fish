@@ -8,6 +8,7 @@ set -g fish_key_bindings fish_vi_key_bindings
 fish_add_path /opt/homebrew/bin
 fish_add_path ~/.config/scripts/
 fish_add_path ~/.cargo/bin
+fish_add_path ~/go/bin
 fish_add_path ~/.local/bin/
 fish_add_path ~/.bun/bin
 fish_add_path ~/.rvm/bin
@@ -16,6 +17,7 @@ fish_add_path ~/opt/homebrew/opt/ruby/bin
 alias l='eza -alg --icons'
 alias lt='eza -lg --tree --level=2 --icons'
 alias ls='eza -ag --icons'
+alias lg='lazygit'
 alias za='zoxide_add'
 alias vim=nvim
 alias v=nvim
@@ -23,6 +25,8 @@ alias b='yazi'
 alias grep=rg
 alias ta='tmux attach'
 alias ga='gcloud auth login'
+alias gs='git status'
+alias gd='git diff'
 alias kx='kubectx'
 alias kn='kubens'
 alias kc='kubectl'
@@ -39,7 +43,6 @@ set -g fish_greeting
 set -x EDITOR nvim
 set -x VISUAL nvim
 set -x XDG_CONFIG_HOME ~/.config/
-set -x DOCKER_HOST unix:///$HOME/.colima/docker.sock
 
 set nord0 2e3440
 set nord1 3b4252

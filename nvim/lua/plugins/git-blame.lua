@@ -7,11 +7,4 @@ return {
     enabled = false, -- disable by default, enabled only on keymap
     date_format = "%m/%d/%y %H:%M:%S", -- more concise date format
   },
-  keys = {
-    {
-      "<Leader>gB",
-      ":GitBlameToggle<CR>",
-      desc = "Toggle git blame",
-    },
-  },
 }
