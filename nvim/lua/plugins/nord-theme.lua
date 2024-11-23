@@ -23,7 +23,7 @@ return {
           -- Style to be applied to different syntax groups
           -- Value is any valid attr-list value for `:help nvim_set_hl`
           comments = { italic = true },
-          keywords = {},
+          keywords = { italic = true },
           functions = {},
           variables = {},
 
@@ -49,7 +49,12 @@ return {
 
         --- You can override specific highlights to use other groups or a hex color
         --- function will be called with all highlights and the colorScheme table
-        on_highlights = function(highlights, colors) end,
+        on_highlights = function(highlights, colors)
+          highlights["@comment"] = { fg = colors.aurora.purple, italic = true }
+          highlights.LineNr = { fg = colors.snow_storm.origin, bg = colors.none }
+          highlights.CursorLineNr = { fg = colors.frost.ice, bold = true }
+          return highlights
+        end,
       }
     end,
   },
