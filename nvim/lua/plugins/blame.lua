@@ -1,0 +1,42 @@
+return {
+  "FabijanZulj/blame.nvim",
+  event = "VeryLazy",
+  opts = {
+    date_format = "%d.%m.%Y",
+    virtual_style = "right_align",
+    focus_blame = true,
+    merge_consecutive = false,
+    max_summary_width = 30,
+    colors = {
+      "#d8dee9",
+      "#e5e9f0",
+      "#eceff4",
+      "#8fbcbb",
+      "#88c0d0",
+      "#81a1c1",
+      "#5e81ac",
+      "#bf616a",
+      "#d08770",
+      "#ebcb8b",
+      "#a3be8c",
+      "#b48ead",
+    },
+    blame_options = nil,
+    commit_detail_view = "vsplit",
+    -- format_fn = formats.commit_date_author_fn,
+    mappings = {
+      commit_info = "i",
+      stack_push = "<TAB>",
+      stack_pop = "<BS>",
+      show_commit = "<CR>",
+      close = { "<esc>", "q" },
+    },
+  },
+  keys = {
+    {
+      "<Leader>gB",
+      ":BlameToggle<CR>",
+      desc = "Toggle git blame",
+    },
+  },
+}
