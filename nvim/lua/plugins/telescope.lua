@@ -139,8 +139,6 @@ return {
   },
   keys = function()
     return {
-      -- TODO: last telescope
-      { "<leader><leader>", "<cmd>Telescope smart_open<cr>", { silent = true, desc = "Smart open files" } },
       { "<leader>/", "<cmd>Telescope live_grep<cr>", { silent = true, desc = "Grep over files" } },
       { "<leader>.", "<cmd>Telescope resume<cr>", { silent = true, desc = "Resume Telescope" } },
       { "<leader>*", "<cmd>Telescope grep_string<cr>", { silent = true, desc = "Grep Word Under Cursor" } },
@@ -157,7 +155,8 @@ return {
       { "<leader>si", "<cmd>Telescope import<cr>", { silent = true, desc = "Search imports" } },
       { "<leader>sk", "<cmd>Telescope keymaps<cr>", { silent = true, desc = "Search keymaps" } },
       { "<leader>sm", "<cmd>Telescope marks<cr>", { silent = true, desc = "Search marks" } },
-      { "<leader>so", "<cmd>Telescope oldfiles<cr>", { silent = true, desc = "Search recent files" } },
+      { "<leader>so", "<cmd>Telescope smart_open<cr>", { silent = true, desc = "Smart open files" } },
+      { "<leader>sx", "<cmd>Telescope oldfiles<cr>", { silent = true, desc = "Search recent files" } },
       { "<leader>ss", "<cmd>Telescope spell_suggest<cr>", { silent = true, desc = "Open spelling suggestions" } },
       { "<leader>su", "<cmd>Telescope undo<cr>", desc = "Undo history" },
     }
