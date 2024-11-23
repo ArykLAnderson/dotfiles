@@ -29,7 +29,7 @@ return {
     telescope.setup(opts)
     telescope.load_extension("import")
     telescope.load_extension("live_grep_args")
-    telescope.load_extension("notify")
+    -- telescope.load_extension("notify")
     telescope.load_extension("smart_open")
     telescope.load_extension("undo")
     telescope.load_extension("fzf")

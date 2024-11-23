@@ -67,6 +67,7 @@ return {
       -- LSP Server Settings
       ---@type lspconfig.options
       servers = {
+        protols = {},
         jdtls = {},
         lua_ls = {
           -- mason = false, -- set to false if you don't want this server to be installed with mason
