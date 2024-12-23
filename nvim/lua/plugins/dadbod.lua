@@ -29,4 +29,22 @@ return {
       { "<leader>Dl", "<cmd>DBUIToggle<cr>", desc = "DB UI Last query infos" },
     },
   },
+  { -- optional saghen/blink.cmp completion source
+    "saghen/blink.cmp",
+    opts = {
+      sources = {
+        -- add vim-dadbod-completion to your completion providers
+        default = {
+          "lsp",
+          "path",
+          "snippets",
+          "buffer",
+          "dadbod",
+        },
+        providers = {
+          dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
+        },
+      },
+    },
+  },
 }
