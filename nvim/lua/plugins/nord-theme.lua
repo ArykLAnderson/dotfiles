@@ -53,11 +53,14 @@ return {
           highlights["@comment"] = { fg = colors.aurora.purple, italic = true }
           highlights.LineNr = { fg = colors.snow_storm.origin, bg = colors.none }
           highlights.CursorLineNr = { fg = colors.frost.ice, bold = true }
+          highlights.Visual = { fg = colors.aurora.orange }
+          highlights.Comment = { fg = colors.aurora.purple, italic = true }
           return highlights
         end,
       }
     end,
   },
+
   -- {
   --   "shaunsingh/nord.nvim",
   --   setup = function()
@@ -72,6 +75,7 @@ return {
   --     require("nord").set()
   --   end,
   -- },
+
   {
     "LazyVim/LazyVim",
     opts = {
