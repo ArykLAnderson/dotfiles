@@ -7,7 +7,6 @@ return {
     }, LazyVim.config.icons.kinds)
 
     opts.keymap = {
-      preset = "enter",
       ["<C-y>"] = { "select_and_accept" },
       ["<C-h>"] = { "hide" },
       ["<C-e>"] = {
