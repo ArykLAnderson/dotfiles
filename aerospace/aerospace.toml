@@ -89,10 +89,10 @@ alt-slash = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-alt-h = 'focus left'
-alt-j = 'focus down'
-alt-k = 'focus up'
-alt-l = 'focus right'
+alt-shift-ctrl-cmd-h = 'focus left'
+alt-shift-ctrl-cmd-j = 'focus down'
+alt-shift-ctrl-cmd-k = 'focus up'
+alt-shift-ctrl-cmd-l = 'focus right'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move
 alt-shift-h = 'move left'
@@ -117,7 +117,7 @@ alt-shift-ctrl-cmd-7 = 'workspace 7'
 alt-shift-ctrl-cmd-8 = 'workspace 8'
 alt-shift-ctrl-cmd-9 = 'workspace 9'
 alt-shift-ctrl-cmd-0 = 'workspace 0'
-alt-shift-ctrl-cmd-a = 'workspace A' # In your config, you can drop workspace bindings that you don't need
+alt-shift-ctrl-cmd-a = 'workspace A'
 alt-shift-ctrl-cmd-b = 'workspace B' # Browser
 alt-shift-ctrl-cmd-c = 'workspace C' # Chat
 alt-shift-ctrl-cmd-d = 'workspace D' # Discord

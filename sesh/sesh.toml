@@ -27,6 +27,19 @@ path = "~/workspace/notes/"
 startup_command = "nvim -c ObsidianToday"
 
 [[session]]
+name = "todos"
+path = "~/workspace/todos/"
+startup_command = "nvim todos.md"
+
+
+[[session]]
 name = "tmux config"
 path = "~/.config/tmux/"
 startup_command = "nvim tmux.conf"
+
+[[session]]
+name = "k8s workspace"
+path = "~/workspace/mercari/"
+startup_command = "k9s"
+
+
