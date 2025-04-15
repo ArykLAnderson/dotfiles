@@ -11,7 +11,7 @@ return {
       return {
         -- your configuration comes here
         -- or leave it empty to use the default settings
-        transparent = false, -- Enable this to disable setting the background color
+        transparent = true, -- Enable this to disable setting the background color
         terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
         diff = { mode = "bg" }, -- enables/disables colorful backgrounds when used in diff mode. values : [bg|fg]
         borders = true, -- Enable the border between verticaly split windows visible
@@ -52,8 +52,8 @@ return {
         on_highlights = function(highlights, colors)
           highlights["@comment"] = { fg = colors.aurora.purple, italic = true }
           highlights.LineNr = { fg = colors.snow_storm.origin, bg = colors.none }
-          highlights.CursorLineNr = { fg = colors.frost.ice, bold = true }
-          highlights.Visual = { fg = colors.aurora.orange }
+          highlights.CursorLineNr = { fg = colors.frost.ice, bold = true, bg = colors.polar_night.bright }
+          highlights.Visual = { fg = colors.aurora.orange, bg = colors.polar_night.brighter }
           highlights.Comment = { fg = colors.aurora.purple, italic = true }
           return highlights
         end,
