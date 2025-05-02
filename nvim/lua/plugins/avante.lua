@@ -7,6 +7,11 @@ return {
     behavior = {
       auto_suggestions = false,
       enable_cursor_planning_mode = true,
+      enable_claude_text_editor_tool_mode = true,
+    },
+    suggestion = {
+      debounce = 1500,
+      throttle = 1500,
     },
   },
   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
