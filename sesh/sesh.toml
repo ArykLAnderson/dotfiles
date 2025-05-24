@@ -31,6 +31,10 @@ name = "todos"
 path = "~/workspace/todos/"
 startup_command = "nvim todos.md"
 
+[[session]]
+name = "assistant"
+path = "~/workspace/assistant/"
+startup_command = "nvim assistant.md"
 
 [[session]]
 name = "tmux config"

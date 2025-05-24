@@ -18,6 +18,7 @@ return {
     wk.add({ "<leader>o", name = "Obsidian", desc = "Obsidian commands" })
   end,
   opts = {
+    ui = { enable = false },
     workspaces = {
       {
         name = "work",
