@@ -113,6 +113,13 @@ return {
             },
           },
         },
+        zls = {
+          cmd = { vim.fn.expand("$HOME/workspace/zig/zls/zig-out/bin/zls") },
+          settings = {
+            enable_build_on_save = true,
+            build_on_save_args = { "install", "-Dtarget=wasm32-wasi", "-fwasmtime" },
+          },
+        },
         -- groovyls = {
         --     filetypes = { "groovy" },
         --     settings = {
