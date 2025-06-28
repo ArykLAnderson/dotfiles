@@ -10,15 +10,19 @@ return {
     }, LazyVim.config.icons.kinds)
     opts.sources = {
       -- Add 'avante' to the list
-      default = { "avante", "copilot", "lsp", "path", "buffer" },
+      -- default = { "avante", "copilot", "lsp", "path", "buffer" },
+      default = { "copilot", "lsp", "path", "snippets", "buffer" },
+      per_filetype = {
+        codecompanion = { "codecompanion" },
+      },
       providers = {
-        avante = {
-          module = "blink-cmp-avante",
-          name = "Avante",
-          opts = {
-            -- options for blink-cmp-avante
-          },
-        },
+        -- avante = {
+        --   module = "blink-cmp-avante",
+        --   name = "Avante",
+        --   opts = {
+        --     -- options for blink-cmp-avante
+        --   },
+        -- },
         copilot = {
           name = "copilot",
           module = "blink-cmp-copilot",
@@ -32,7 +36,7 @@ return {
       ["<C-y>"] = { "select_and_accept" },
       ["<C-h>"] = { "hide" },
       ["<C-e>"] = {
-        require("blink.cmp.keymap.presets")["super-tab"]["<Tab>"][1],
+        require("blink.cmp.keymap.presets").get("super-tab")["<Tab>"][1],
         LazyVim.cmp.map({ "snippet_forward", "ai_accept" }),
         "fallback",
       },

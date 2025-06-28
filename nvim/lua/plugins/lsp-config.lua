@@ -69,6 +69,9 @@ return {
       servers = {
         protols = {},
         jdtls = {},
+        ts_ls = {
+          enabled = true,
+        },
         lua_ls = {
           -- mason = false, -- set to false if you don't want this server to be installed with mason
           -- Use this to add any additional keymaps
@@ -81,7 +84,7 @@ return {
                 checkThirdParty = false,
               },
               codeLens = {
-                enable = true,
+                enable = false,
               },
               completion = {
                 callSnippet = "Replace",
