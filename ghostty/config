@@ -1,0 +1,12 @@
+font-family = "Maple Mono NF CN"
+font-size = 16
+theme = "nord"
+background-opacity = 0.5
+background-blur = 20
+window-decoration = false
+# macos-titlebar-style = hidden
+mouse-hide-while-typing = true
+auto-update = download
+bold-is-bright = true
+desktop-notifications = true
+font-thicken = true

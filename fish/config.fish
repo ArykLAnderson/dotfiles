@@ -31,6 +31,8 @@ alias kx='kubectx'
 alias kn='kubens'
 alias kc='kubectl'
 alias kk='k9s'
+alias oc='opencode'
+alias gi='gemini'
 zoxide init --cmd cd fish | source
 
 bind --user -M insert \ce forward-char
@@ -91,3 +93,10 @@ starship init fish | source
 fzf --fish | source
 enable_transience
 start_or_attach_tmux
+
+# opencode
+fish_add_path /Users/tmp-a-anderson/.opencode/bin
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH

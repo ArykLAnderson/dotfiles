@@ -1,5 +1,8 @@
 .DS_Store
 ./tmux/plugins
+claude/projects
+claude/statsig
+claude/todos
 fish/fish_variables
 tmux/plugins
 btop/btop.log
