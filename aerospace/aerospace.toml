@@ -199,7 +199,7 @@ alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
 
 [[on-window-detected]]
-if.app-id = 'org.google.Chrome'
+if.app-id = 'com.google.Chrome'
 run = "move-node-to-workspace B"
 
 [[on-window-detected]]
@@ -211,11 +211,11 @@ if.app-id = 'com.hnc.discord'
 run = "move-node-to-workspace D"
 
 [[on-window-detected]]
-if.app-id = 'com.appple.mail'
+if.app-id = 'com.apple.mail'
 run = "move-node-to-workspace E"
 
 [[on-window-detected]]
-if.app-id = 'com.appple.iCal'
+if.app-id = 'com.apple.iCal'
 run = "move-node-to-workspace E"
 
 
@@ -236,6 +236,10 @@ if.app-id = 'md.obsidian'
 run = "move-node-to-workspace N"
 
 [[on-window-detected]]
+if.app-id = 'notion.id'
+run = "move-node-to-workspace N"
+
+[[on-window-detected]]
 if.app-id = 'com.bitwarden.desktop'
 run = "move-node-to-workspace P"
 
@@ -246,3 +250,15 @@ run = "move-node-to-workspace S"
 [[on-window-detected]]
 if.app-id = 'net.kovidgoyal.kitty'
 run = "move-node-to-workspace T"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Notes'
+run = "move-node-to-workspace N"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.ActivityMonitor'
+run = "move-node-to-workspace A"
+
+[[on-window-detected]]
+if.app-id = 'com.todesktop.230313mzl4w4u92'
+run = "move-node-to-workspace C"

@@ -52,9 +52,10 @@ return {
       "nvim-treesitter/nvim-treesitter",
       "github/copilot.vim", -- Ensure Copilot is installed
       "j-hui/fidget.nvim",
+      "ravitemer/codecompanion-history.nvim",
     },
     keys = {
-      { "<leader>cc", "<Cmd>CodeCompanionActions<cr>", desc = "Code Companion Actions Palette" },
+      { "<leader>ck", "<Cmd>CodeCompanionActions<cr>", desc = "Code Companion Actions Palette" },
       { "<leader>a", "<Cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle Code Companion Chat" },
       { "ga", "<Cmd>CodeCompanionChat Add<cr>", mode = "v", desc = "Add buffer to Code Companion Chat" },
     },
@@ -75,6 +76,6 @@ return {
   {
     "MeanderingProgrammer/render-markdown.nvim",
     ft = { "markdown", "codecompanion" },
+    enabled = false, -- Disabled due to infinite loop issue with filetype detection
   },
 }
-
