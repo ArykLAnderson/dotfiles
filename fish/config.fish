@@ -13,6 +13,8 @@ fish_add_path ~/.local/bin/
 fish_add_path ~/.bun/bin
 fish_add_path ~/.rvm/bin
 fish_add_path ~/opt/homebrew/opt/ruby/bin
+fish_add_path ~/workspace/zig/zig/build/stage3/bin
+fish_add_path ~/workspace/zig/zls/zig-out/bin
 
 alias l='eza -alg --icons'
 alias lt='eza -lg --tree --level=2 --icons'

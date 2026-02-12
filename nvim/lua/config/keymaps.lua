@@ -15,3 +15,11 @@ vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("x", "<leader>P", '"_dP', { desc = "Paste no replace" })
 vim.keymap.set("n", "<leader>r", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { desc = "Replace in buffer" })
 vim.keymap.set("n", "<leader><space>", "<cmd>b#<cr>", { desc = "Previous buffer" })
+vim.keymap.set("n", "<leader>gd", function()
+  local currentWord = vim.fn.expand("<cword>")
+  print(currentWord)
+  if string.match(currentWord, "SDL_") then
+    print("match!")
+    vim.fn.system("open " .. string.format("https://wiki.libsdl.org/SDL3/%s", currentWord))
+  end
+end, { desc = "Lookup SDL function" })
