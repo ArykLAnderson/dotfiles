@@ -42,20 +42,11 @@ return {
       document_highlight = {
         enabled = true,
       },
-      -- add any global capabilities here
-      capabilities = {
-        textDocument = {
-          foldingRange = {
-            dynamicRegistration = false,
-            lineFoldingOnly = true,
-          },
-        },
-        workspace = {
-          fileOperations = {
-            didRename = true,
-            willRename = true,
-          },
-        },
+      -- Enable this to enable the builtin LSP folding on Neovim.
+      -- Be aware that you also will need to properly configure your LSP server to
+      -- provide the folds.
+      folds = {
+        enabled = true,
       },
       -- options for vim.lsp.buf.format
       -- `bufnr` and `filter` is handled by the LazyVim formatter,
@@ -67,7 +58,55 @@ return {
       -- LSP Server Settings
       ---@type lspconfig.options
       servers = {
-        protols = {},
+        -- add any global capabilities here for all servers
+        ["*"] = {
+          capabilities = {
+            textDocument = {
+              foldingRange = {
+                dynamicRegistration = false,
+                lineFoldingOnly = true,
+              },
+            },
+            workspace = {
+              fileOperations = {
+                didRename = true,
+                willRename = true,
+              },
+            },
+          },
+          -- stylua: ignore
+          keys = {
+            { "<leader>cl", function() Snacks.picker.lsp_config() end, desc = "Lsp Info" },
+            { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition", has = "definition" },
+            { "gr", function() Snacks.picker.lsp_references() end, desc = "References", nowait = true },
+            { "gI", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
+            { "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
+            { "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Declaration" },
+            { "K", function() return vim.lsp.buf.hover() end, desc = "Hover" },
+            { "gK", function() return vim.lsp.buf.signature_help() end, desc = "Signature Help", has = "signatureHelp" },
+            { "<c-k>", function() return vim.lsp.buf.signature_help() end, mode = "i", desc = "Signature Help", has = "signatureHelp" },
+            { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "x" }, has = "codeAction" },
+            { "<leader>cc", vim.lsp.codelens.run, desc = "Run Codelens", mode = { "n", "x" }, has = "codeLens" },
+            { "<leader>cC", vim.lsp.codelens.refresh, desc = "Refresh & Display Codelens", mode = { "n" }, has = "codeLens" },
+            { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File", mode ={"n"}, has = { "workspace/didRenameFiles", "workspace/willRenameFiles" } },
+            { "<leader>cr", vim.lsp.buf.rename, desc = "Rename", has = "rename" },
+            { "<leader>cA", LazyVim.lsp.action.source, desc = "Source Action", has = "codeAction" },
+            { "]]", function() Snacks.words.jump(vim.v.count1) end, has = "documentHighlight",
+              desc = "Next Reference", enabled = function() return Snacks.words.is_enabled() end },
+            { "[[", function() Snacks.words.jump(-vim.v.count1) end, has = "documentHighlight",
+              desc = "Prev Reference", enabled = function() return Snacks.words.is_enabled() end },
+            { "<a-n>", function() Snacks.words.jump(vim.v.count1, true) end, has = "documentHighlight",
+              desc = "Next Reference", enabled = function() return Snacks.words.is_enabled() end },
+            { "<a-p>", function() Snacks.words.jump(-vim.v.count1, true) end, has = "documentHighlight",
+              desc = "Prev Reference", enabled = function() return Snacks.words.is_enabled() end },
+          },
+        },
+        protols = {
+          on_attach = function(client, bufnr)
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+          end,
+        },
         jdtls = {},
         ts_ls = {
           enabled = true,
