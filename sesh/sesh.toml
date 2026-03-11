@@ -47,4 +47,9 @@ name = "k8s workspace"
 path = "~/workspace/mercari/"
 startup_command = "k9s"
 
+[[session]]
+name = "aerospace config"
+path = "~/.config/aerospace/"
+startup_command = "vim aerospace.toml"
+
 
