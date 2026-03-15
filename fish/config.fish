@@ -5,6 +5,8 @@ end
 #fish_config theme choose Nord
 set -g fish_key_bindings fish_vi_key_bindings
 
+set -x ANDROID_HOME ~/Library/Android/sdk
+
 fish_add_path /opt/homebrew/bin
 fish_add_path ~/.config/scripts/
 fish_add_path ~/.cargo/bin
@@ -15,7 +17,11 @@ fish_add_path ~/.rvm/bin
 fish_add_path ~/opt/homebrew/opt/ruby/bin
 fish_add_path ~/workspace/zig/zig/build/stage3/bin
 fish_add_path ~/workspace/zig/zls/zig-out/bin
-
+fish_add_path $ANDROID_HOME/emulator
+fish_add_path $ANDROID_HOME/tools
+fish_add_path $ANDROID_HOME/tools/bin
+fish_add_path $ANDROID_HOME/platform-tools
+fish_add_path /Library/TeX/texbin
 alias l='eza -alg --icons'
 alias lt='eza -lg --tree --level=2 --icons'
 alias ls='eza -ag --icons'
@@ -32,8 +38,9 @@ alias gd='git diff'
 alias kx='kubectx'
 alias kn='kubens'
 alias kc='kubectl'
+alias psql='psql-17'
 alias kk='k9s'
-alias oc='opencode'
+alias oc='OPENROUTER_API_KEY=$(pass openrouter/api_key) opencode'
 alias gi='gemini'
 zoxide init --cmd cd fish | source
 
