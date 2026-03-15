@@ -1,5 +1,6 @@
 return {
   "kevinhwang91/nvim-ufo",
+  enabled = false, -- Temporarily disabled - causes hang on markdown files
   dependencies = { "kevinhwang91/promise-async" },
   event = "BufEnter",
   config = function()

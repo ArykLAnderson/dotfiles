@@ -2,6 +2,7 @@ return {
   "saghen/blink.cmp",
   dependencies = {
     "Kaiser-Yang/blink-cmp-avante",
+    "giuxtaposition/blink-cmp-copilot",
   },
   opts = function(_, opts)
     opts.appearance = opts.appearance or {}
