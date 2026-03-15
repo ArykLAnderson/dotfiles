@@ -1,5 +1,6 @@
 [default_session]
-startup_command = "nvim"
+# Creates 50/50 split: nvim (left) + opencode (right)
+startup_command = "dev-split"
 
 [[session]]
 name = "btop"
@@ -9,41 +10,46 @@ startup_command = "btop"
 [[session]]
 name = "fish config"
 path = "~/.config/fish/"
-startup_command = "nvim config.fish"
+startup_command = "dev-split config.fish"
 
 [[session]]
 name = "sesh config"
 path = "~/.config/sesh/"
-startup_command = "nvim sesh.toml"
+startup_command = "dev-split sesh.toml"
 
 [[session]]
 name = "neovim config"
 path = "~/.config/nvim/"
-startup_command = "nvim "
+startup_command = "dev-split"
 
 [[session]]
 name = "notes"
 path = "~/workspace/notes/"
-startup_command = "nvim -c ObsidianToday"
+startup_command = "dev-split -n -c ObsidianToday"
 
 [[session]]
 name = "todos"
 path = "~/workspace/todos/"
-startup_command = "nvim todos.md"
+startup_command = "dev-split todos.md"
 
 [[session]]
 name = "assistant"
 path = "~/workspace/assistant/"
-startup_command = "nvim assistant.md"
+startup_command = "dev-split assistant.md"
 
 [[session]]
 name = "tmux config"
 path = "~/.config/tmux/"
-startup_command = "nvim tmux.conf"
+startup_command = "dev-split tmux.conf"
 
 [[session]]
 name = "k8s workspace"
 path = "~/workspace/mercari/"
 startup_command = "k9s"
+
+[[session]]
+name = "aerospace config"
+path = "~/.config/aerospace/"
+startup_command = "vim aerospace.toml"
 
 

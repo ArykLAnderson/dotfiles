@@ -16,7 +16,7 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
   },
   install = { colorscheme = { "nord" } },
-  checker = { enabled = true, frequency = 86400 }, -- automatically check for plugin updates
+  checker = { enabled = true, frequency = 604800 }, -- automatically check for plugin updates (weekly)
   performance = {
     rtp = {
       disabled_plugins = {

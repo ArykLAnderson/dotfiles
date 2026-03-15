@@ -1,9 +1,9 @@
 function start_or_attach_tmux
     if test -z "$TMUX"
         if test -z (tmux ls | grep workspace)
-            tmux new -s workspace
+            TERM="xterm-kitty" tmux new -s workspace
         else
-            tmux attach
+            TERM="xterm-kitty" tmux attach
         end
     end
 end
