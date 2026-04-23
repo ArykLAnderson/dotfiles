@@ -5,6 +5,11 @@ function dev-split --description "Create 50/50 split with nvim (left) and oc (ri
     #   dev-split -n file.txt -c Something  - nvim file.txt -c Something + oc
     #   dev-split -n file.txt -o --resume   - nvim file.txt + oc --resume
     #   dev-split -o --resume               - nvim + oc --resume
+    #
+    # Bare repo detection:
+    #   When opened in a bare git repo root, nvim will cd into the default
+    #   branch worktree (master/main/develop) so LSP/treesitter work.
+    #   opencode stays in the bare root (ideal for cross-worktree work).
 
     set -l nvim_args
     set -l oc_args
@@ -31,14 +36,35 @@ function dev-split --description "Create 50/50 split with nvim (left) and oc (ri
         end
     end
 
-    # Build and run nvim command in current pane
-    if test (count $nvim_args) -gt 0
-        tmux send-keys "nvim $nvim_args" Enter
-    else
-        tmux send-keys "nvim" Enter
+    # Detect bare repo and find default worktree for nvim
+    set -l nvim_cd ""
+    if git rev-parse --is-bare-repository 2>/dev/null | grep -q true
+        # Find default branch worktree: try master, main, develop in order
+        for branch in master main develop
+            if test -d "./$branch" -a -f "./$branch/.git"
+                set nvim_cd $branch
+                break
+            end
+        end
     end
 
-    # Create 50% vertical split and run oc
+    # Build and run nvim command in current pane
+    if test -n "$nvim_cd"
+        # cd into worktree, then run nvim
+        if test (count $nvim_args) -gt 0
+            tmux send-keys "cd $nvim_cd && nvim $nvim_args" Enter
+        else
+            tmux send-keys "cd $nvim_cd && nvim" Enter
+        end
+    else
+        if test (count $nvim_args) -gt 0
+            tmux send-keys "nvim $nvim_args" Enter
+        else
+            tmux send-keys "nvim" Enter
+        end
+    end
+
+    # Create 50% vertical split and run oc (stays in bare root if applicable)
     tmux split-window -h -p 50
 
     if test (count $oc_args) -gt 0
