@@ -1,3 +1,10 @@
+-- This config does not use Neovim's optional remote-plugin providers.
+-- Disabling them avoids startup probes and irrelevant :checkhealth warnings.
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+
 -- Disable treesitter for markdown BEFORE lazy loads to prevent hang
 -- See: https://github.com/nvim-treesitter/nvim-treesitter/issues/5508
 vim.opt.foldmethod = "indent"
