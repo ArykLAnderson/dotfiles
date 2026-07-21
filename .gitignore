@@ -13,3 +13,12 @@ lazygit/state.yml
 nvim/lazy-lock.json
 opencode/config.json
 pet/snippet.toml
+
+# Herdr trial machine-local custody/profile; portable config stays tracked.
+herdr/trials/casebook/profile.local.toml
+herdr/trials/casebook/state/
+herdr/trials/casebook/logs/
+herdr/trials/casebook/bindings/
+
+# Herdr's actual named-session socket/runtime directory.
+herdr/sessions/casebook-trial/
