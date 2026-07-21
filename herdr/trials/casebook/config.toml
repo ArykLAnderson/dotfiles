@@ -32,10 +32,23 @@ name = "terminal"
 [theme.custom]
 panel_bg = "reset"
 accent = "#88c0d0"
+surface0 = "#3b4252"
+surface1 = "#434c5e"
+surface_dim = "#2e3440"
+overlay0 = "#4c566a"
+overlay1 = "#d8dee9"
+text = "#eceff4"
+subtext0 = "#d8dee9"
+mauve = "#b48ead"
 green = "#a3be8c"
 blue = "#81a1c1"
 red = "#bf616a"
 yellow = "#ebcb8b"
+teal = "#8fbcbb"
+peach = "#d08770"
+
+[ui.sound]
+enabled = false
 
 # Offline source-plugin wiring; linking/live validation are separate gates.
 # Accepted prefix+o intentionally displaces Herdr's native open_notification_target;
