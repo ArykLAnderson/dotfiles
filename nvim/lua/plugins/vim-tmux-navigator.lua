@@ -38,6 +38,7 @@ end
 return {
   "christoomey/vim-tmux-navigator",
   lazy = false,
+  pin = true,
   cmd = {
     "TmuxNavigateLeft",
     "TmuxNavigateDown",
