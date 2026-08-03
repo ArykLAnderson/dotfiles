@@ -7,7 +7,7 @@ shell_mode = "auto"
 new_cwd = "follow"
 
 [session]
-resume_agents_on_restore = false
+resume_agents_on_restore = true
 
 [experimental]
 pane_history = false
@@ -22,6 +22,7 @@ split_vertical = "prefix+v"
 split_horizontal = "prefix+s"
 next_tab = "alt+n"
 previous_tab = "alt+p"
+switch_tab = "alt+1..9"
 next_workspace = "prefix+n"
 previous_workspace = "prefix+p"
 last_pane = ["alt+space", "prefix+space"]
@@ -35,7 +36,7 @@ accent = "#88c0d0"
 surface0 = "#3b4252"
 surface1 = "#434c5e"
 surface_dim = "#2e3440"
-overlay0 = "#4c566a"
+overlay0 = "#d8dee9"
 overlay1 = "#d8dee9"
 text = "#eceff4"
 subtext0 = "#d8dee9"

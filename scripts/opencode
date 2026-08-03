@@ -1,0 +1,25 @@
+#!/bin/sh
+set -eu
+
+wrapper_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+real_opencode=
+old_ifs=$IFS
+IFS=:
+for directory in $PATH; do
+    [ -n "$directory" ] || directory=.
+    [ "$(CDPATH= cd -- "$directory" 2>/dev/null && pwd || true)" = "$wrapper_dir" ] && continue
+    if [ -x "$directory/opencode" ]; then
+        real_opencode=$directory/opencode
+        break
+    fi
+done
+IFS=$old_ifs
+[ -n "$real_opencode" ] || { printf '%s\n' "opencode: real executable not found on PATH" >&2; exit 127; }
+
+env_file=${OPENCODE_ENV_FILE:-${XDG_CONFIG_HOME:-$HOME/.config}/opencode/env.local.sh}
+if [ -f "$env_file" ]; then
+    # Machine-local hook: may export private/work-specific environment variables.
+    . "$env_file"
+fi
+
+exec "$real_opencode" "$@"

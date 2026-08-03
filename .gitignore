@@ -12,6 +12,7 @@ github-copilot/
 lazygit/state.yml
 nvim/lazy-lock.json
 opencode/config.json
+opencode/env.local.sh
 pet/snippet.toml
 
 # Herdr trial machine-local custody/profile; portable config stays tracked.
