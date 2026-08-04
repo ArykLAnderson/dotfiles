@@ -60,6 +60,12 @@ type = "plugin_action"
 command = "aryk.spaces.open-spaces"
 description = "open unified spaces"
 
+[[keys.command]]
+key = "prefix+u"
+type = "plugin_action"
+command = "aryk.urls.open-urls"
+description = "select and open URL from pane"
+
 # Accepted prefix+H/T intentionally override Herdr defaults swap-left/rename-tab.
 [[keys.command]]
 key = "prefix+h"
