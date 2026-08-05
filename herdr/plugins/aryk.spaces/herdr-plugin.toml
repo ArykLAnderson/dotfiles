@@ -1,0 +1,23 @@
+# Local plugin for Herdr 0.8.0.
+id = "aryk.spaces"
+name = "Aryk Spaces"
+version = "0.1.0"
+min_herdr_version = "0.8.0"
+description = "Unified semantic, live, and folder-backed workspace picker"
+platforms = ["linux", "macos"]
+
+[[actions]]
+id = "open-spaces"
+title = "Open unified spaces"
+description = "Open the semantic, live workspace, zoxide, and configured-folder picker"
+contexts = ["pane"]
+command = ["node", "index.mjs", "action"]
+
+[[panes]]
+id = "spaces"
+title = "Spaces"
+description = "Select a semantic project, live workspace, or allowed folder"
+placement = "popup"
+width = "85%"
+height = "75%"
+command = ["node", "index.mjs", "picker"]

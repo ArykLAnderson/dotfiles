@@ -17,6 +17,8 @@ vim.opt.ruler = false
 vim.opt.laststatus = 0
 vim.opt.cmdheight = 1
 vim.opt.wrap = false
+vim.opt.conceallevel = 3
+vim.opt.concealcursor = "nc"
 vim.opt.shortmess:append("I")
 
 vim.api.nvim_set_hl(0, "Normal", { fg = "#D8DEE9", bg = "#2E3440" })
@@ -28,6 +30,8 @@ vim.bo.buftype = "nofile"
 vim.bo.bufhidden = "wipe"
 vim.bo.swapfile = false
 vim.bo.modifiable = true
+vim.cmd([[syntax on]])
+vim.cmd([[syntax match HerdrPinKey /\t[^\t]*$/ conceal]])
 
 local function move(delta)
   local line = vim.fn.line(".")
@@ -41,7 +45,7 @@ local function finish(save)
   if save then
     local keys = {}
     for _, line in ipairs(vim.api.nvim_buf_get_lines(0, 0, 4, false)) do
-      table.insert(keys, line:match("^([^\t]+)") or "empty")
+      table.insert(keys, line:match("([^\t]+)$") or "empty")
     end
     while #keys < 4 do table.insert(keys, "empty") end
     vim.fn.writefile(keys, output)
@@ -52,7 +56,7 @@ end
 vim.keymap.set("n", "J", function() move(1) end, { buffer = true, silent = true })
 vim.keymap.set("n", "K", function() move(-1) end, { buffer = true, silent = true })
 vim.keymap.set("n", "c", function()
-  vim.api.nvim_set_current_line("empty\t-\t[empty]")
+  vim.api.nvim_set_current_line("[empty]\t-\t-\tempty")
 end, { buffer = true, silent = true })
 vim.keymap.set("n", "<CR>", function() finish(true) end, { buffer = true, silent = true })
 vim.keymap.set("n", "<Esc>", function() finish(true) end, { buffer = true, silent = true })

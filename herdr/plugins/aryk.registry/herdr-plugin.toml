@@ -1,0 +1,17 @@
+id = "aryk.registry"
+name = "Aryk Registry Publisher"
+version = "0.1.0"
+min_herdr_version = "0.8.0"
+description = "Reconcile live Herdr agent bindings into the canonical local registry"
+platforms = ["macos"]
+
+[[events]]
+on = "pane.focused"
+command = ["node", "index.mjs"]
+
+[[actions]]
+id = "reconcile"
+title = "Reconcile canonical sessions"
+description = "Reconcile all exactly attested live agent sessions"
+contexts = ["pane"]
+command = ["node", "index.mjs"]
