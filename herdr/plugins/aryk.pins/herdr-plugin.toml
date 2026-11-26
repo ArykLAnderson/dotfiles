@@ -8,15 +8,15 @@ platforms = ["linux", "macos"]
 
 [[actions]]
 id = "pin-project"
-title = "Pin current project"
-description = "Append the authoritative current project to the first free project slot"
+title = "Pin current space"
+description = "Append the current Herdr workspace to the first free space slot"
 contexts = ["pane"]
 command = ["node", "index.mjs", "action", "pin-project"]
 
 [[actions]]
 id = "manage-projects"
-title = "Manage project pins"
-description = "Open the project pin manager popup"
+title = "Manage space pins"
+description = "Open the Herdr workspace pin manager popup"
 contexts = ["pane"]
 command = ["node", "index.mjs", "action", "manage-projects"]
 
@@ -36,29 +36,29 @@ command = ["node", "index.mjs", "action", "manage-locals"]
 
 [[actions]]
 id = "activate-project-1"
-title = "Open project pin 1"
-description = "Focus canonical project pin slot 1 or visibly refuse"
+title = "Open space pin 1"
+description = "Focus Herdr workspace pin slot 1 or visibly refuse"
 contexts = ["pane"]
 command = ["node", "index.mjs", "action", "activate-project-1"]
 
 [[actions]]
 id = "activate-project-2"
-title = "Open project pin 2"
-description = "Focus canonical project pin slot 2 or visibly refuse"
+title = "Open space pin 2"
+description = "Focus Herdr workspace pin slot 2 or visibly refuse"
 contexts = ["pane"]
 command = ["node", "index.mjs", "action", "activate-project-2"]
 
 [[actions]]
 id = "activate-project-3"
-title = "Open project pin 3"
-description = "Focus canonical project pin slot 3 or visibly refuse"
+title = "Open space pin 3"
+description = "Focus Herdr workspace pin slot 3 or visibly refuse"
 contexts = ["pane"]
 command = ["node", "index.mjs", "action", "activate-project-3"]
 
 [[actions]]
 id = "activate-project-4"
-title = "Open project pin 4"
-description = "Focus canonical project pin slot 4 or visibly refuse"
+title = "Open space pin 4"
+description = "Focus Herdr workspace pin slot 4 or visibly refuse"
 contexts = ["pane"]
 command = ["node", "index.mjs", "action", "activate-project-4"]
 
@@ -96,8 +96,8 @@ command = ["node", "index.mjs", "event", "pane.focused"]
 
 [[panes]]
 id = "project-manager"
-title = "Project pins"
-description = "Inspect, reorder, and clear four project pin slots"
+title = "Space pins"
+description = "Inspect, reorder, and clear four Herdr workspace pin slots"
 placement = "popup"
 width = 84
 height = 14

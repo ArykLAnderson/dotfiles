@@ -23,6 +23,11 @@ function projectStatus(canonicalId, registry) {
   if (claims.length !== 1) return claims.length ? "ambiguous" : "missing";
   return claims[0].reconciliationState === "current" ? "unique" : "stale";
 }
+function invocationPaneId(env, context) {
+  const paneId = env.HERDR_PANE_ID;
+  if (typeof paneId !== "string" || !paneId || context?.focused_pane_id !== paneId) throw new Error("focused invocation pane is unavailable");
+  return paneId;
+}
 const workspacePinId = workspaceId => `herdr-workspace:${workspaceId}`;
 const workspaceIdFromPin = pin => pin.startsWith("herdr-workspace:") ? pin.slice("herdr-workspace:".length) : null;
 function resolvedPaths(options, env) {
@@ -51,15 +56,30 @@ export async function invokeAction(action, options = {}) {
     if (!client) client = createHerdrClient({ env, route: registry.route });
     const context = contextFrom(env);
     if (["pin-project", "pin-local"].includes(action)) {
+      const scope = action === "pin-project" ? "project" : "local";
+      if (scope === "project") {
+        const paneId = invocationPaneId(env, context);
+        const pane = await client.getPane(paneId);
+        const workspaces = await client.listWorkspaces();
+        if (pane.pane_id !== paneId || typeof pane.workspace_id !== "string" || !pane.workspace_id
+          || workspaces.filter(workspace => workspace.workspace_id === pane.workspace_id).length !== 1) {
+          return visibleRefusal("Focused pane's workspace is unavailable or ambiguous.", { client, writeResult });
+        }
+        const canonicalId = workspacePinId(pane.workspace_id);
+        const result = await pinTransaction(pinPath(scope, paths), async pins => {
+          const appended = appendPin(pins, canonicalId); return { pins: appended.pins, result: appended };
+        });
+        if (result.status === "full") return visibleRefusal("Space pins are full.", { client, writeResult });
+        return { status: result.status, slot: result.slot, canonicalId };
+      }
       const agents = await client.listAgents();
       const current = identifyCurrentSession({ registry, agents, context, paneId: env.HERDR_PANE_ID });
       if (current.status !== "unique") return visibleRefusal(`Canonical current session unavailable (${current.status}).`, { client, writeResult });
-      const scope = action === "pin-project" ? "project" : "local";
-      const canonicalId = scope === "project" ? workspacePinId(current.agent.workspace_id) : current.record.canonicalId;
+      const canonicalId = current.record.canonicalId;
       const result = await pinTransaction(pinPath(scope, paths), async pins => {
         const appended = appendPin(pins, canonicalId); return { pins: appended.pins, result: appended };
       });
-      if (result.status === "full") return visibleRefusal(`${scope === "project" ? "Project" : "Local"} pins are full.`, { client, writeResult });
+      if (result.status === "full") return visibleRefusal("Local pins are full.", { client, writeResult });
       return { status: result.status, slot: result.slot, canonicalId };
     }
     const match = /^(activate)-(project|local)-(\d)$/.exec(action);
@@ -67,12 +87,12 @@ export async function invokeAction(action, options = {}) {
     const scope = match[2]; const slot = Number(match[3]);
     const pins = parsePins(await (options.loadPins ?? loadPins)(pinPath(scope, paths)));
     const pinned = pins.slots[slot - 1];
-    if (!pinned) return visibleRefusal(`${scope === "project" ? "Project" : "Local"} pin ${slot} is empty.`, { client, writeResult });
+    if (!pinned) return visibleRefusal(`${scope === "project" ? "Space" : "Local"} pin ${slot} is empty.`, { client, writeResult });
     if (scope === "project") {
       const workspaceId = workspaceIdFromPin(pinned);
-      if (!workspaceId) return visibleRefusal(`Project pin ${slot} uses an obsolete project format; clear and pin the space again.`, { client, writeResult });
+      if (!workspaceId) return visibleRefusal(`Space pin ${slot} uses an obsolete project format; clear and pin the space again.`, { client, writeResult });
       const workspaces = await client.listWorkspaces();
-      if (workspaces.filter(workspace => workspace.workspace_id === workspaceId).length !== 1) return visibleRefusal(`Project pin ${slot} unavailable (stale).`, { client, writeResult });
+      if (workspaces.filter(workspace => workspace.workspace_id === workspaceId).length !== 1) return visibleRefusal(`Space pin ${slot} unavailable (stale).`, { client, writeResult });
       await client.focusWorkspace(workspaceId);
       return { status: "focused", workspaceId };
     }
@@ -87,7 +107,7 @@ export async function invokeAction(action, options = {}) {
         canonicalSessionId = pinned; projectCanonicalId = resolution.record.projectCanonicalId;
       } else {
         const plan = planProjectActivation({ targetProjectCanonicalId: pinned, currentSessionCanonicalId: current.record.canonicalId, registry, agents, history });
-        if (plan.status !== "ready") throw new Error(`Project pin ${slot} unavailable (${plan.status}).`);
+        if (plan.status !== "ready") throw new Error(`Space pin ${slot} unavailable (${plan.status}).`);
         ({ canonicalSessionId, projectCanonicalId, resolution } = plan);
       }
       await client.focusSession(resolution); // exact verified pane id; exit-0 body must attest the same official tuple and locators

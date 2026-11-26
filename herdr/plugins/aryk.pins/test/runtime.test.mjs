@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createHerdrClient, parseAgentListResponse, parseFocusResponse, parseWorkspaceListResponse } from "../lib/herdr-client.mjs";
+import { createHerdrClient, parseAgentListResponse, parseFocusResponse, parsePaneGetResponse, parseWorkspaceListResponse } from "../lib/herdr-client.mjs";
 import { handlePaneFocusedEvent, recordSuccessfulFocus, invokeAction } from "../lib/runtime.mjs";
 
 const env = { HERDR_BIN_PATH: "/opt/herdr", HERDR_CONFIG_PATH: "/home/a/.config/herdr/trials/casebook/config.toml", HERDR_SOCKET_PATH: "/tmp/casebook.sock", HERDR_PANE_ID: "pane-a", HERDR_PLUGIN_CONTEXT_JSON: '{"focused_pane_id":"pane-a"}' };
@@ -35,7 +35,23 @@ test("client refuses missing route proof and uncertain/nonzero/invalid output", 
   await assert.rejects(client.focusSession({ record: focusRecord }), /failed|uncertain/); assert.equal(calls.length, 1);
 });
 
-test("popup uses manifest entrypoint with exact argv", async () => {
+test("pane get accepts only the requested pane and a workspace locator", async () => {
+  const pane = { pane_id: "pane-a", workspace_id: "workspace-a", focused: true };
+  assert.deepEqual(parsePaneGetResponse(JSON.stringify({ result: { type: "pane_info", pane } }), "pane-a"), pane);
+  assert.throws(() => parsePaneGetResponse(JSON.stringify({ result: { type: "pane_info", pane: { ...pane, pane_id: "pane-b" } } }), "pane-a"), /target mismatch/);
+  assert.throws(() => parsePaneGetResponse(JSON.stringify({ result: { type: "pane_info", pane: { ...pane, workspace_id: "" } } }), "pane-a"), /invalid pane/);
+  const calls = [];
+  const client = createHerdrClient({ env, route, executor: async (executable, args, options) => {
+    calls.push({ executable, args, options });
+    return { status: 0, stdout: JSON.stringify({ result: { type: "pane_info", pane } }), stderr: "" };
+  } });
+  assert.deepEqual(await client.getPane("pane-a"), pane);
+  assert.deepEqual(calls[0].args, ["--session", "casebook-trial", "pane", "get", "pane-a"]);
+  assert.equal(calls[0].options.shell, false);
+  await assert.rejects(client.getPane(""), /pane ID/);
+});
+
+test("space-pin popup uses manifest entrypoint with exact argv", async () => {
   const calls = [];
   const client = createHerdrClient({ env, route, executor: async (executable, args, options) => { calls.push({ executable, args, options }); return { status: 0, stdout: "{}", stderr: "" }; } });
   await client.openPopup("project-manager");
@@ -110,7 +126,149 @@ test("missing registry action fails visibly through result popup", async () => {
   assert.equal(result.status, "refused"); assert.deepEqual(opened, ["result"]);
 });
 
-test("project workspace pins focus the exact live workspace", async () => {
+test("space pins use the invocation pane's live workspace without requiring a canonical chat", async () => {
+  const writes = [], opened = [];
+  const result = await invokeAction("pin-project", {
+    env, readRegistry: async () => ({ schemaVersion: 1, route, projects: [], sessions: [] }),
+    client: {
+      getPane: async paneId => ({ pane_id: paneId, workspace_id: "workspace-new", focused: true }),
+      listWorkspaces: async () => [{ workspace_id: "workspace-new", focused: true }],
+      listAgents: async () => assert.fail("project pins do not require canonical agents"),
+      openPopup: async id => opened.push(id),
+    },
+    pinTransaction: async (_file, mutate) => {
+      const outcome = await mutate({ schemaVersion: 1, slots: [null, null, null, null] });
+      writes.push(outcome.pins);
+      return outcome.result;
+    },
+    writeResult: async () => {},
+  });
+  assert.deepEqual(result, { status: "pinned", slot: 1, canonicalId: "herdr-workspace:workspace-new" });
+  assert.deepEqual(writes[0].slots, ["herdr-workspace:workspace-new", null, null, null]);
+  assert.deepEqual(opened, []);
+});
+
+test("space pin stays idempotent and visibly refuses a full pin set", async () => {
+  for (const initial of [
+    { schemaVersion: 1, slots: ["herdr-workspace:workspace-new", null, null, null] },
+    { schemaVersion: 1, slots: ["a", "b", "c", "d"] },
+  ]) {
+    const writes = [], opened = [];
+    const result = await invokeAction("pin-project", {
+      env, readRegistry: async () => ({ schemaVersion: 1, route, projects: [], sessions: [] }),
+      client: {
+        getPane: async paneId => ({ pane_id: paneId, workspace_id: "workspace-new" }),
+        listWorkspaces: async () => [{ workspace_id: "workspace-new" }],
+        openPopup: async id => opened.push(id),
+      },
+      pinTransaction: async (_file, mutate) => {
+        const outcome = await mutate(initial);
+        writes.push(outcome.pins);
+        return outcome.result;
+      },
+      writeResult: async () => {},
+    });
+    if (initial.slots[0] === "herdr-workspace:workspace-new") {
+      assert.deepEqual(result, { status: "existing", slot: 1, canonicalId: "herdr-workspace:workspace-new" });
+      assert.deepEqual(opened, []);
+    } else {
+      assert.equal(result.status, "refused");
+      assert.match(result.message, /Space pins are full/);
+      assert.deepEqual(opened, ["result"]);
+    }
+    assert.deepEqual(writes, [initial]);
+  }
+});
+
+test("local pins still require and store the current canonical chat session", async () => {
+  const writes = [];
+  const agent = focusedAgent();
+  const registry = {
+    schemaVersion: 1, route,
+    projects: [{ canonicalId: "project-a", generation: 1, reconciliationState: "current", stewardSessionCanonicalId: "session-a" }],
+    sessions: [structuredClone(focusRecord)],
+  };
+  const result = await invokeAction("pin-local", {
+    env, readRegistry: async () => registry,
+    client: {
+      listAgents: async () => [agent],
+      openPopup: async id => assert.fail(`unexpected refusal popup: ${id}`),
+    },
+    pinTransaction: async (_file, mutate) => {
+      const outcome = await mutate({ schemaVersion: 1, slots: [null, null, null, null] });
+      writes.push(outcome.pins);
+      return outcome.result;
+    },
+    writeResult: async () => {},
+  });
+  assert.deepEqual(result, { status: "pinned", slot: 1, canonicalId: "session-a" });
+  assert.deepEqual(writes[0].slots, ["session-a", null, null, null]);
+});
+
+test("space pin refuses when the invocation context does not identify its pane", async () => {
+  const opened = [], writes = [];
+  const result = await invokeAction("pin-project", {
+    env: { ...env, HERDR_PLUGIN_CONTEXT_JSON: '{"focused_pane_id":"pane-b"}' },
+    readRegistry: async () => ({ schemaVersion: 1, route, projects: [], sessions: [] }),
+    client: {
+      getPane: async () => assert.fail("invalid invocation context must be refused before pane lookup"),
+      listWorkspaces: async () => assert.fail("invalid invocation context must be refused before workspace lookup"),
+      openPopup: async id => opened.push(id),
+    },
+    pinTransaction: async () => { writes.push(true); },
+    writeResult: async () => {},
+  });
+  assert.equal(result.status, "refused");
+  assert.equal(result.message, "focused invocation pane is unavailable");
+  assert.deepEqual(writes, []);
+  assert.deepEqual(opened, ["result"]);
+});
+
+test("space pin refuses a missing or empty invocation pane ID before pane lookup", async () => {
+  for (const paneId of [undefined, ""]) {
+    const opened = [], writes = [];
+    const actionEnv = { ...env, HERDR_PANE_ID: paneId };
+    const result = await invokeAction("pin-project", {
+      env: actionEnv, readRegistry: async () => ({ schemaVersion: 1, route, projects: [], sessions: [] }),
+      client: {
+        getPane: async () => assert.fail("missing invocation pane ID must be refused before pane lookup"),
+        listWorkspaces: async () => assert.fail("missing invocation pane ID must be refused before workspace lookup"),
+        openPopup: async id => opened.push(id),
+      },
+      pinTransaction: async () => { writes.push(true); },
+      writeResult: async () => {},
+    });
+    assert.equal(result.status, "refused");
+    assert.deepEqual(writes, []);
+    assert.deepEqual(opened, ["result"]);
+  }
+});
+
+test("space pins refuse stale pane or workspace evidence without changing pins", async () => {
+  for (const scenario of [
+    { name: "pane locator does not match", pane: { pane_id: "pane-b", workspace_id: "workspace-new", focused: true }, workspaces: [{ workspace_id: "workspace-new", focused: true }] },
+    { name: "workspace is no longer live", pane: { pane_id: "pane-a", workspace_id: "workspace-new", focused: true }, workspaces: [] },
+    { name: "workspace identity is ambiguous", pane: { pane_id: "pane-a", workspace_id: "workspace-new", focused: true }, workspaces: [{ workspace_id: "workspace-new", focused: true }, { workspace_id: "workspace-new", focused: true }] },
+  ]) {
+    const writes = [], opened = [];
+    const result = await invokeAction("pin-project", {
+      env, readRegistry: async () => ({ schemaVersion: 1, route, projects: [], sessions: [] }),
+      client: {
+        getPane: async () => scenario.pane,
+        listWorkspaces: async () => scenario.workspaces,
+        listAgents: async () => assert.fail("project pins do not require canonical agents"),
+        openPopup: async id => opened.push(id),
+      },
+      pinTransaction: async (_file, mutate) => { writes.push(await mutate({ schemaVersion: 1, slots: [null, null, null, null] })); return writes.at(-1).result; },
+      writeResult: async () => {},
+    });
+    assert.equal(result.status, "refused", scenario.name);
+    assert.deepEqual(writes, [], scenario.name);
+    assert.deepEqual(opened, ["result"], scenario.name);
+  }
+});
+
+test("space pins focus the exact live workspace", async () => {
   assert.deepEqual(parseWorkspaceListResponse(JSON.stringify({ result: { type: "workspace_list", workspaces: [{ workspace_id: "workspace-a" }] } })), [{ workspace_id: "workspace-a" }]);
   const focused = [];
   const result = await invokeAction("activate-project-1", {

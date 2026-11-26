@@ -20,6 +20,14 @@ export function parseWorkspaceListResponse(output) {
   if (response?.result?.type !== "workspace_list" || !Array.isArray(response.result.workspaces)) throw new Error("workspace list returned an unexpected response");
   return response.result.workspaces;
 }
+export function parsePaneGetResponse(output, expectedPaneId) {
+  const response = jsonResponse(output, "pane get");
+  const pane = response?.result?.pane;
+  if (response?.result?.type !== "pane_info" || typeof pane?.pane_id !== "string" || !pane.pane_id
+    || typeof pane.workspace_id !== "string" || !pane.workspace_id) throw new Error("pane get returned an invalid pane");
+  if (pane.pane_id !== expectedPaneId) throw new Error("pane get response target mismatch");
+  return pane;
+}
 function sameOfficial(a, b) { return a?.source === b?.source && a?.agent === b?.agent && a?.kind === b?.kind && a?.value === b?.value; }
 export function parseFocusResponse(output, expectedRecord) {
   const response = jsonResponse(output, "agent focus");
@@ -45,6 +53,10 @@ export function createHerdrClient({ env = process.env, route, executor = default
   return {
     async listAgents() { return parseAgentListResponse(await call(["agent", "list"])); },
     async listWorkspaces() { return parseWorkspaceListResponse(await call(["workspace", "list"])); },
+    async getPane(paneId) {
+      if (typeof paneId !== "string" || !paneId) throw new TypeError("pane ID is required");
+      return parsePaneGetResponse(await call(["pane", "get", paneId]), paneId);
+    },
     async focusWorkspace(workspaceId) {
       if (typeof workspaceId !== "string" || !workspaceId) throw new TypeError("workspace target is required");
       const response = jsonResponse(await call(["workspace", "focus", workspaceId]), "workspace focus");

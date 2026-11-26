@@ -71,13 +71,13 @@ description = "select and open URL from pane"
 key = "prefix+h"
 type = "plugin_action"
 command = "aryk.pins.pin-project"
-description = "pin current project"
+description = "pin current space"
 
 [[keys.command]]
 key = "prefix+H"
 type = "plugin_action"
 command = "aryk.pins.manage-projects"
-description = "manage project pins"
+description = "manage space pins"
 
 [[keys.command]]
 key = "prefix+t"
@@ -95,25 +95,25 @@ description = "manage local pins"
 key = "alt+j"
 type = "plugin_action"
 command = "aryk.pins.activate-project-1"
-description = "open project pin 1"
+description = "open space pin 1"
 
 [[keys.command]]
 key = "alt+k"
 type = "plugin_action"
 command = "aryk.pins.activate-project-2"
-description = "open project pin 2"
+description = "open space pin 2"
 
 [[keys.command]]
 key = "alt+l"
 type = "plugin_action"
 command = "aryk.pins.activate-project-3"
-description = "open project pin 3"
+description = "open space pin 3"
 
 [[keys.command]]
 key = "alt+;"
 type = "plugin_action"
 command = "aryk.pins.activate-project-4"
-description = "open project pin 4"
+description = "open space pin 4"
 
 [[keys.command]]
 key = "alt+m"

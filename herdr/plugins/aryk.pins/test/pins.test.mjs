@@ -101,9 +101,10 @@ test("manager renders four states, reorders, clears, and exits", () => {
   assert.equal(reduceManagerState(state, "exit").exit, true);
 });
 
-test("project manager resolves legacy workspace pins against live workspaces", () => {
+test("space manager resolves workspace pins against live workspaces", () => {
   const pins = { schemaVersion: 1, slots: ["herdr-workspace:w5", "herdr-workspace:gone", null, null] };
   const output = renderManager("project", pins, registry, [{ workspace_id: "w5", label: "materialize" }]);
+  assert.match(output, /^Space pins/);
   assert.match(output, /1  materialize  \[current\]/);
   assert.match(output, /2  herdr-workspace:gone  \[unavailable\]/);
 });
