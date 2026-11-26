@@ -156,7 +156,7 @@ export function renderManager(scope, pinsValue, registryValue, workspaces = []) 
   const pins = parsePins(pinsValue); let registry;
   try { registry = validateRegistry(registryValue); } catch { registry = null; }
   const collection = scope === "project" ? registry?.projects : registry?.sessions;
-  const lines = [`${scope === "project" ? "Project" : "Local"} pins`];
+  const lines = [`${scope === "project" ? "Space" : "Local"} pins`];
   pins.slots.forEach((id, index) => {
     let state = "empty";
     let displayName = id;
